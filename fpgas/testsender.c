@@ -30,7 +30,14 @@ int main()
     int i;
     for(i = 0; i < 5; i++){
         buffer_len = sprintf(buffer, "Hello %d ", i);
-        if (byte_sent = sendto(sock, buffer, buffer_len, 0, (struct sockaddr *)&sa, sizeof sa) < 0){
+        byte_sent = sendto(sock, 
+			   buffer, 
+			   buffer_len + 1, 
+			   0, 
+			   (struct sockaddr *)&sa, 
+			   sizeof sa);
+
+	if (byte_sent < 0){
             fprintf(stderr, "Error sending packets \n");
             break;
         }

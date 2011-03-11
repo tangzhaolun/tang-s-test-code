@@ -1,4 +1,4 @@
-CFLAGS = -o3 -g
+CFLAGS = -O0 -g
 CDFLAGS = $(CFLAGS)
 
 TARGETS = \

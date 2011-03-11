@@ -3,7 +3,7 @@ typedef unsigned short     uint16;
 typedef unsigned int     uint32;
 
 
-struct COMMON_HEADER
+struct common_header
 {
     uint16 magic;
     uint8 version;
@@ -19,7 +19,7 @@ struct COMMON_HEADER
     uint32 _reserved1[2];
 }__attribute__((packed));
 
-struct FRAME_INFO_HEADER
+struct frame_info_header
 {
     uint8 content_type;
     uint8 content_info;
@@ -44,19 +44,19 @@ struct FRAME_INFO_HEADER
 }__attribute__((packed));
 
 /* The complete Frame Info */
-struct FRAME_INFO
+struct frame_info
 {
-    struct COMMON_HEADER hdr; /* Header */
-    struct FRAME_INFO_HEADER infos; /* Setup infos */
+    struct common_header hdr; /* Header */
+    struct frame_info_header infos; /* Setup infos */
 }__attribute__((packed));
 
-struct FRAME_DATA
+struct frame_data
 {
-    struct COMMON_HEADER hdr;
+    struct common_header hdr;
     void * content;
 }__attribute__((packed));
 
-struct ACK_PACKET
+struct ack_packet
 {
     uint16 magic;
     uint8 version;
