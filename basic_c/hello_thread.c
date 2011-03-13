@@ -34,6 +34,10 @@ int main(int argc, char **argv)
 
 	for(i = 0; i < thread_count; i++){
 		char *ii = malloc(10);
+		/* char ii[10];*/
+		/* to avoid threads over-write each other's ii variable, 
+		 * use malloc here instead of ii[10],
+		 * but leaves a potential bug because free is not called*/
 		sprintf(ii,"%d",i);
     		pthread_create(&thread_id[i], NULL, &print_msg, ii);
 	}
