@@ -5,7 +5,7 @@ LDFLAGS = -g -lpthread
 # The TARGETS defines all the final executable files.
 # DON'T write .c files in TARGETS!! They will be cleaned by make clean.
 TARGETS = \
-	security \
+	thread_specific_data \
 	hello_thread \
 	$(NULL)
 
@@ -22,7 +22,7 @@ all: $(TARGETS)
 # NOTE: when you write the dependency from .o to executable file,
 #	you MUST start the second line with a TAB, not blackspaces. 
 
-security: security.o
+thread_specific_data: thread_specific_data.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
 hello_thread: hello_thread.o
