@@ -1,5 +1,11 @@
+/* This file test the usage of pthread mutex and queue pointer(linked list).
+ * But potential problem is if threads execute faster than enqueue function
+ * (use sleep function with enqueue to simulate this),
+ * all threads exit before enqueue, then queue is not empty.
+ * To avoid this situation, check thread_job_queue_sem.c for solution.*/
 #include <malloc.h>
 #include <pthread.h>
+#include <unistd.h>
 
 struct job {
     int id;
@@ -50,6 +56,8 @@ void *thread_func (void *data)
     return NULL;
 }
 
+/* IMPORTANT: in order to modify the queue pointer,
+ * pass it as pointer to pointer.*/
 void enqueue_job (struct job **job_queue, struct job * new_job)
 {
     pthread_mutex_lock (&job_queue_mutex);
@@ -67,15 +75,25 @@ int main()
 
     struct job *job_queue = NULL;
     
+#if 0
     /* Create new jobs for a job queue. */
     for (i = 0; i < 50; i++) {
         struct job *new_job = malloc (sizeof (struct job));
         new_job->id = i;
         enqueue_job (&job_queue, new_job);
     }
+#endif
 
     for (i = 0; i < SIZE; i++) {
         pthread_create (&(threads[i]), NULL, thread_func, &job_queue);
+    }
+
+    /* Create new jobs for a job queue. */
+    for (i = 0; i < 10; i++) {
+        struct job *new_job = malloc (sizeof (struct job));
+        new_job->id = i;
+        enqueue_job (&job_queue, new_job);
+        sleep(1);
     }
 
     for (i = 0; i < SIZE; i++) {
