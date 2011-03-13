@@ -6,7 +6,7 @@ LDFLAGS = -g -lpthread
 # DON'T write .c files in TARGETS!! They will be cleaned by make clean.
 TARGETS = \
 	thread_job_queue \
-	hello_thread \
+	thread_job_queue_sem \
 	$(NULL)
 
 # if 'all' is not defined, make command will execute
@@ -25,7 +25,7 @@ all: $(TARGETS)
 thread_job_queue: thread_job_queue.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
-hello_thread: hello_thread.o
+thread_job_queue_sem: thread_job_queue_sem.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
 
