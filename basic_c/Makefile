@@ -1,18 +1,17 @@
 CFLAGS = -O0 -g -Wall
 CXXFLAGS = $(CFLAGS)
-LDFLAGS = -g 
+LDFLAGS = -g -lpthread
 
 # The TARGETS defines all the final executable files.
+# DON'T write .c files in TARGETS!! They will be cleaned by make clean.
 TARGETS = \
-	test_strcpy_w \
-	test_strlen_w \
-	char_to_asci \
-	parameter_in_stack_w\
-	security\
+	security \
+	hello_thread \
 	$(NULL)
 
-# if 'all' is not defined, make command will only execute the first dependency line from .o to executable file.
-# for example, if 'all' is removed, only test_strcpy_w will be produced.
+# if 'all' is not defined, make command will execute
+# only the first dependency line,
+# so only one executable file from the first line will be created.
 all: $(TARGETS)
 
 # the following two lines are included in make as default,
@@ -20,21 +19,15 @@ all: $(TARGETS)
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# define the dependency line from .o to executable file
-test_strcpy_w: strcpy_w.o
-	$(CC) $(LDFLAGS) $^ -o $@
-
-test_strlen_w: strlen_w.o
-	$(CC) $(LDFLAGS) $^ -o $@
-
-char_to_asci: char_to_asci.o
-	$(CC) $(LDFLAGS) $^ -o $@
-
-parameter_in_stack_w: parameter_in_stack_w.o
-	$(CC) $(LDFLAGS) $^ -o $@
+# NOTE: when you write the dependency from .o to executable file,
+#	you MUST start the second line with a TAB, not blackspaces. 
 
 security: security.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
+hello_thread: hello_thread.o
+	$(CC) $(LDFLAGS) $^ -o $@
+
+
 clean:
-	$(RM) *.o $(TARGETS)
+	$(RM) *.o *~ a.out $(TARGETS)
