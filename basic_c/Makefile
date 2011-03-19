@@ -7,6 +7,7 @@ LDFLAGS = -g -lpthread
 TARGETS = \
 	thread_job_queue \
 	thread_job_queue_improved \
+	swap_big_little \
 	$(NULL)
 
 # if 'all' is not defined, make command will execute
@@ -28,6 +29,8 @@ thread_job_queue: thread_job_queue.o
 thread_job_queue_improved: thread_job_queue_improved.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
+swap_big_little: swap_big_little.o
+	$(CC) $(LDFLAGS) $^ -o $@
 
 clean:
 	$(RM) *.o *~ a.out $(TARGETS)
