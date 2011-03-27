@@ -5,8 +5,6 @@ LDFLAGS = -g -lpthread
 # The TARGETS defines all the final executable files.
 # DON'T write .c files in TARGETS!! They will be cleaned by make clean.
 TARGETS = \
-	thread_job_queue \
-	thread_job_queue_improved \
 	swap_big_little \
 	$(NULL)
 
