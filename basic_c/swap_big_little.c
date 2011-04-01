@@ -6,6 +6,8 @@ typedef unsigned int    uint32;
 #include <limits.h>
 #include <stdlib.h>
 
+typedef unsigned long long uint64;
+
 uint16 swap_endian_short(uint16 n)
 {
   union {
@@ -26,10 +28,25 @@ uint16 swap_endian_short2(uint16 n)
   return u.s;
 }
 
+uint64 swap_64bit(uint64 data){
+    return ((uint64)
+            ((data<<56)&0xFF00000000000000L) | 
+            ((data<<40)&0x00FF000000000000L) | 
+            ((data<<24)&0x0000FF0000000000L) |
+            ((data<<8) &0x000000FF00000000L) |
+            ((data>>8 )&0x00000000FF000000L) | 
+            ((data>>24)&0x0000000000FF0000L) | 
+            ((data>>40)&0x000000000000FF00L) |
+            ((data>>56)&0x00000000000000FFL) );
+}
+
 int main ()
 {
-  char str_uint16[5];
-  /*char str_tmp[5]; */
+    long long my64 = 55622322248322411LL;
+    printf("long long:\t 0x%016llx\n", my64);
+    printf("after swap:\t 0x%016llx\n", swap_64bit(my64));
+
+  /*char str_uint16[5];
   uint16 n;
 
   char c = 'a';
@@ -46,5 +63,5 @@ int main ()
     printf("Output integar: %d\n", n);
     printf("After swap big/little: %d\n", swap_endian_short(n));
   }
-  return 0;
+  return 0;*/
 }
