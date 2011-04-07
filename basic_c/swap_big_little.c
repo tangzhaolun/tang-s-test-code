@@ -46,6 +46,7 @@ int main ()
     printf("long long:\t 0x%016llx\n", my64);
     printf("after swap:\t 0x%016llx\n", swap_64bit(my64));
 
+
   /*char str_uint16[5];
   uint16 n;
 
